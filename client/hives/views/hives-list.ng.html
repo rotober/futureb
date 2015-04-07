@@ -1,0 +1,25 @@
+<form>
+    <label>Code</label>
+    <input ng-model="newHive.code">
+    <label>Description</label>
+    <input ng-model="newHive.description">
+    <label>Public</label>
+    <input type="checkbox" ng-model="newHive.public">
+    <button ng-click="newHive.owner=$root.currentUser._id;hives.push(newHive)">Add</button>
+</form>
+<ul>
+    <h1>Hives:</h1>
+    <div>
+        <input type="search" ng-model="search" placeholder="Search">
+        <select ng-model="orderProperty">
+            <option value="1">Ascending</option>
+            <option value="-1">Descending</option>
+        </select>
+    </div>
+    <li dir-paginate="hive in hives | itemsPerPage: perPage" total-items="hivesCount.count">
+        <a href="/hives/{{hive._id}}">{{hive.code}}</a>
+        <p>{{hive.description}}</p>
+        <button ng-click="remove(hive)">X</button>
+    </li>
+</ul>
+<dir-pagination-controls on-page-change="pageChanged(newPageNumber)"></dir-pagination-controls>
